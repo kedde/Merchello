@@ -11,7 +11,7 @@ namespace Merchello.Core.Gateways.Notification.Smtp
      /// Represents the SMTP Notification Gateway Provider
      ///</summary>
     [GatewayProviderActivation("5F2E88D1-6D07-4809-B9AB-D4D6036473E9", "SMTP Notification Provider", "SMTP Notification Provider")]
-    [GatewayProviderEditor("SMTP Notification Configuration", "~/App_Plugins/Merchello/Modules/Settings/Notifications/Dialog/smtp.notifications.providersettings.html")]
+    [GatewayProviderEditor("SMTP Notification Configuration", "~/App_Plugins/Merchello/Modules/Settings/GatewayProviders/Dialogs/smtp.notifications.providersettings.html")]
     public class SmtpNotificationGatewayProvider : NotificationGatewayProviderBase, ISmtpNotificationGatewayProvider
     {
         #region Resources
@@ -36,16 +36,16 @@ namespace Merchello.Core.Gateways.Notification.Smtp
             return AvailableResources.Where(x => NotificationMethods.All(y => y.ServiceCode != x.ServiceCode));
         }
 
-        /// <summary>
-        /// Creates a <see cref="INotificationGatewayMethod"/>
-        /// </summary>
-        /// <param name="gatewayResource">The <see cref="IGatewayResource"/> implemented by this method</param>
-        /// <param name="name">The name of the notification method</param>
-        /// <param name="description">The description of the notification method</param>        
-        /// <returns></returns>
-        public override INotificationGatewayMethod CreateNotificationMethod(IGatewayResource gatewayResource, string name, string description)
+         /// <summary>
+         /// Creates a <see cref="INotificationGatewayMethod"/>
+         /// </summary>
+         /// <param name="gatewayResource">The <see cref="IGatewayResource"/> implemented by this method</param>
+         /// <param name="name">The name of the notification method</param>
+         /// <param name="serviceCode"></param>
+         /// <returns></returns>
+         public override INotificationGatewayMethod CreateNotificationMethod(IGatewayResource gatewayResource, string name, string serviceCode)
         {
-            var attempt = GatewayProviderService.CreateNotificationMethodWithKey(GatewayProviderSettings.Key, name, description);
+            var attempt = GatewayProviderService.CreateNotificationMethodWithKey(GatewayProviderSettings.Key, name, serviceCode);
 
             if (attempt.Success) return new SmtpNotificationGatewayMethod(GatewayProviderService, attempt.Result, GatewayProviderSettings.ExtendedData);
 

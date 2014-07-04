@@ -1,12 +1,24 @@
-﻿using System;
-using System.Collections.Generic;
-using Merchello.Core.Gateways.Notification.Formatters;
-using Merchello.Core.Models;
-
-namespace Merchello.Core.Gateways.Notification
+﻿namespace Merchello.Core.Gateways.Notification
 {
+    using System.Collections.Generic;
+    using Formatters;
+    using Models;
+
+    /// <summary>
+    /// Defines a notification gateway method
+    /// </summary>
     public interface INotificationGatewayMethod : IGatewayMethod
     {
+        /// <summary>
+        /// Gets the <see cref="INotificationMethod"/>
+        /// </summary>
+        INotificationMethod NotificationMethod { get; }
+
+        /// <summary>
+        /// Gets a collection of <see cref="INotificationMessage"/>s associated with this NotificationMethod
+        /// </summary>
+        IEnumerable<INotificationMessage> NotificationMessages { get; } 
+
         /// <summary>
         /// Creates a <see cref="INotificationMessage"/>
         /// </summary>
@@ -31,39 +43,16 @@ namespace Merchello.Core.Gateways.Notification
         void DeleteNotificationMessage(INotificationMessage message);
 
         /// <summary>
-        /// Sends a <see cref="IFormattedNotificationMessage"/> given it's unique Key (Guid)
+        /// Sends a <see cref="IFormattedNotificationMessage"/>
         /// </summary>
-        /// <param name="messageKey">The unique key (Guid) of the <see cref="IFormattedNotificationMessage"/></param>
-        bool Send(Guid messageKey);
-
-        /// <summary>
-        /// Sends a <see cref="IFormattedNotificationMessage"/> given it's unique Key (Guid)
-        /// </summary>
-        /// <param name="messageKey">The unique key (Guid) of the <see cref="IFormattedNotificationMessage"/></param>
-        /// <param name="formatter">The <see cref="INotificationFormatter"/> to use to format the message</param>
-        bool Send(Guid messageKey, INotificationFormatter formatter);
+        /// <param name="notificationMessage">The <see cref="IFormattedNotificationMessage"/> to be sent</param>
+        void Send(INotificationMessage notificationMessage);
 
         /// <summary>
         /// Sends a <see cref="IFormattedNotificationMessage"/>
         /// </summary>
         /// <param name="notificationMessage">The <see cref="IFormattedNotificationMessage"/> to be sent</param>
-        bool Send(INotificationMessage notificationMessage);
-
-        /// <summary>
-        /// Sends a <see cref="IFormattedNotificationMessage"/>
-        /// </summary>
-        /// <param name="notificationMessage">The <see cref="IFormattedNotificationMessage"/> to be sent</param>
-        /// <param name="formatter">The <see cref="INotificationFormatter"/> to use to format the message</param>
-        bool Send(INotificationMessage notificationMessage, INotificationFormatter formatter);
-
-        /// <summary>
-        /// Gets the <see cref="INotificationMethod"/>
-        /// </summary>
-        INotificationMethod NotificationMethod { get; }
-
-        /// <summary>
-        /// Gets a collection of <see cref="INotificationMessage"/>s associated with this NotificationMethod
-        /// </summary>
-        IEnumerable<INotificationMessage> NotificationMessages { get; } 
+        /// <param name="formatter">The <see cref="IFormatter"/> to use to format the message</param>
+        void Send(INotificationMessage notificationMessage, IFormatter formatter);
     }
 }

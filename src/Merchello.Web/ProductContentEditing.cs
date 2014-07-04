@@ -1,12 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using AutoMapper;
-using Merchello.Core;
-using Umbraco.Core.Models;
-using Umbraco.Web.Models.ContentEditing;
-
-namespace Merchello.Web
+﻿namespace Merchello.Web
 {
+    using System.Collections.Generic;
+    using System.Linq;
+    using AutoMapper;
+    using Core;
+    using Umbraco.Core.Models;
+    using Umbraco.Web.Models.ContentEditing;
+
     internal class ProductContentEditing
     {
         internal static void BindMappings()
@@ -55,7 +55,8 @@ namespace Merchello.Web
                     // Must prefix with _umb_ so Umbraco knows not to save this property
                     Label = "",
                     Value = null,
-                    View = "boolean",
+                    //View = "../App_Plugins/Merchello/PropertyEditors/ProductPicker/Views/merchelloproductselector.html",
+                    View = "../App_Plugins/Merchello/Backoffice/Merchello/ProductVariantEdit.html",
                     HideLabel = true,
                     Config = new Dictionary<string, object>()
                 }

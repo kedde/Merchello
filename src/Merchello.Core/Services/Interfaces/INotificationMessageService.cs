@@ -21,10 +21,9 @@ namespace Merchello.Core.Services
         /// <param name="fromAddress">The senders or "from" address</param>
         /// <param name="recipients">A collection of recipient address</param>
         /// <param name="bodyText">The body text of the message</param>
-        /// <param name="triggerKey">An optional event trigger key reference</param>
         /// <param name="raiseEvents">Optional boolean indicating whether or not to raise events</param>
         /// <returns>Attempt{INotificationMessage}</returns>
-        Attempt<INotificationMessage> CreateNotificationMethodWithKey(Guid methodKey, string name, string description, string fromAddress, IEnumerable<string> recipients, string bodyText, Guid? triggerKey = null, bool raiseEvents = true);
+        Attempt<INotificationMessage> CreateNotificationMethodWithKey(Guid methodKey, string name, string description, string fromAddress, IEnumerable<string> recipients, string bodyText, bool raiseEvents = true);
 
         /// <summary>
         /// Saves a single instance of <see cref="INotificationMessage"/>
@@ -60,5 +59,12 @@ namespace Merchello.Core.Services
         /// <param name="notificationMethodKey">The <see cref="INotificationMethod"/> key</param>
         /// <returns>Optional boolean indicating whether or not to raise events</returns>
         IEnumerable<INotificationMessage> GetNotificationMessagesByMethodKey(Guid notificationMethodKey);
+
+        /// <summary>
+        /// Gets a collection of <see cref="INotificationMessage"/>s based on a monitor key
+        /// </summary>
+        /// <param name="monitorKey">The Notification Monitor Key (Guid)</param>
+        /// <returns>A collection of <see cref="INotificationMessage"/></returns>
+        IEnumerable<INotificationMessage> GetNotificationMessagesByMonitorKey(Guid monitorKey);
     }
 }
